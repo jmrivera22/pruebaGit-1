@@ -11,3 +11,6 @@ El archivo con creedenciales falsas .gitignore lo he creado en el repositorio lo
 
 
 Por último,adjunto una captura de que se ha realizado todo lo que pedía la actividad y se ha subido a gitHub.
+
+![Captura actividad completa](capturagitHub.png)
+
