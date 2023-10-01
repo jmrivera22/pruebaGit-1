@@ -17,7 +17,7 @@ Mi compañero para esta actividad ha sido Alejandro Lopez Santos.
 
 Para este ejercicio hemos generado las llaves con el comando gpg --full-generate-key como podemos observar en la siguiente captura.
 
-![captura1](img/generacionllaves.png)
+![captura1](img/generaciondellaves.png)
 
 Y observamos que las claves se han creado correctamente como nos indica la salida del comando
 
