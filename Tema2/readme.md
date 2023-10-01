@@ -13,6 +13,7 @@ Calcula los requisitos que ha de cumplir el SAI que proteja:
 
 
 EJERCICIO 3-
+Mi compañero para esta actividad ha sido Alejandro Lopez Santos.
 
 Para este ejercicio hemos generado las llaves con el comando gpg --full-generate-key como podemos observar en la siguiente captura.
 
