@@ -4,7 +4,7 @@ Primeramente crearemos en el archivo Vagrantfile los tres maquinas virtuales las
 A cada una le he asignado una dirección ip dentro de la misma red y se comunican entre ellas haciendo ping dentro de 
 cualquiera de las máquinas virtuales.
 
-![captura1](/img/capturaVagrantFile)
+![captura1](img/capturaVagrantFile.png)
 
 En esta captura del VagrantFile podemos observar la creación de las tres máquinas virtuales,donde
 en el host C instalaremos tar.gz y restic, en el host B instalaremos rsync tar.gz y restic y en el
@@ -17,7 +17,7 @@ y restic.sh lo cúal me ha dado error al levantar las máquinas con los scripts 
 vagrantfile cuando sin incluirlos me levantaba bien la máquina y he podido hacer ping 
 
 
-![captura2](img/capturaBackup)
+![captura2](img/capturaBackup.png)
 
 En esta captura del script de backup vamos a declarar unas variables que son fecha,directorios y 
 destiono donde almacenaremos la fecha,los directorios que queremos copiar con el backup y el 
@@ -25,7 +25,7 @@ destino del backup respectivamente.Lo comprimimos usando tar.gz y lo sincronizam
 mediante rsync.
 
 
-![captura1](img/capturaRestic)
+![captura3](img/capturaRestic.png)
 
 En esta captura del script restic.sh observamos que creamos tambien una variable donde guardaremos 
 la fecha para despues ponersela al fichero. Utilizamos el comando restic para copiar los directorios
