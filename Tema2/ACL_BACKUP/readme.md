@@ -4,7 +4,7 @@ Primeramente crearemos en el archivo Vagrantfile los tres maquinas virtuales las
 A cada una le he asignado una dirección ip dentro de la misma red y se comunican entre ellas haciendo ping dentro de 
 cualquiera de las máquinas virtuales.
 
-![captura1](img/capturaVagrantFile)
+![captura1](/img/capturaVagrantFile)
 
 En esta captura del VagrantFile podemos observar la creación de las tres máquinas virtuales,donde
 en el host C instalaremos tar.gz y restic, en el host B instalaremos rsync tar.gz y restic y en el
