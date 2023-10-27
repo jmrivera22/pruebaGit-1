@@ -7,7 +7,7 @@ los comandos usados para esta tarea son gpg --import , gpg --encrypt --recipient
 
 ![captura1](capturasExamen/archivoCreado.png)
 ![captura2](capturasExamen/ClaveImportada.png)
-![captura3](capturasExamen/ArchivoEncriptado.png)
+![captura3](capturasExamen/ArchicoEncriptado.png)
  
 
 Ejercicio 3-
