@@ -7,12 +7,12 @@ los comandos usados para esta tarea son gpg --import , gpg --encrypt --recipient
 
 ![captura1](capturasExamen/archivoCreado.png)
 ![captura2](capturasExamen/ClaveImportada.png)
-![captura3](capturasExamen/ArchivoEncriptado.png)
+![captura3](capturasExamen/ArchicoEncriptado.png)
  
 
 Ejercicio 3-
 Para este ejercicio he creado la maquina virtual en la cual he añadido un script donde se crean los usuarios los directorios y se les da los permisos necesarios a cada uno.
 El script seria es el siguiente.
-![captura4](capturasExamen/script.png)
+![captura4](capturasExamen/Script.png)
 
 No me ha dado tiempo a crear el segundo script para hacer el backup.
