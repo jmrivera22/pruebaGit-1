@@ -1,0 +1,25 @@
+
+Vagrant.configure("2") do |config|
+	config.vm.define "hostB" do |hostB|
+		hostB.vm.box= "techchad2022/ubuntu2204"
+		hostB.vm.network "private_network", ip:"192.168.20.102"
+		hostB.vm.hostname = "hostB"
+		hostB.vm.provision "shell", inline: <<-SHELL 
+			apt-get install -y tar.gz
+			apt-get install -y rsync
+		SHELL
+	end
+	
+	config.vm.define "hostA" do |hostA|
+		hostA.vm.box= "techchad2022/ubuntu2204"
+		hostA.vm.network "private_network", ip:"192.168.20.101"
+		hostA.vm.hostname = "hostA"
+		hostA.vm.provision "shell", path: "ACL.sh" , privileged:true
+		hostA.vm.provision "shell", path: "rsync.sh" , privileged:true
+		hostA.vm.provision "shell", inline: <<-SHELL 
+			echo '0 12 * * * rsync.sh' | crontab -
+			
+		SHELL
+	end
+
+end
