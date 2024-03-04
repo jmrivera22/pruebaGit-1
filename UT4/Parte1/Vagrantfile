@@ -1,0 +1,46 @@
+Vagrant.configure("2") do |config|
+    config.vm.define :cliente do |hostA|
+      cliente.vm.box = "techchad2022/ubuntu2204"
+      cliente.vm.network "private_network", ip: "192.168.10.11", virtualbox__intnet: "ssh"
+      cliente.vm.synced_folder "./", "/sincronizada"
+	  #Desde el cliente generaremos un par de llaves que guardaré en la carpeta sincronizada para despúes utilizarla para introducirla al servidor en authorized_keys para poder entrar sin contraseña
+      cliente.vm.provision "shell", inline: <<-SHELL
+        apt-get update
+        apt-get install -y ssh sshpass
+		apt-get install -y sshpass
+        ssh-keygen -f "/sincronizada/clave" -P "" <<<"y"
+      SHELL
+    end
+
+    config.vm.define :servidor do |hostB|
+      servidor.vm.box = "techchad2022/ubuntu2204"
+      servidor.vm.network "private_network", ip: "192.168.10.12", virtualbox__intnet: "ssh"
+      servidor.vm.synced_folder "./", "/sincronizada"
+	  #Configuración inicial para poner en funcionamiento fail2ban,si queremos activar el segundo factor de autentificación solo tendremos que comentar la configuración del fail2ban
+      servidor.vm.provision "shell", inline: <<-SHELL
+        apt-get update
+        apt-get install -y openssh-server 
+		apt-get install -y libpam-google-authenticator 
+		apt-get install -y fail2ban
+
+        #Editamos el fichero de configuración de ssh para no permitir el acceso a root y que no podamos acceder mediante contraseña,solo con la llave del cliente que hemos guardado en authorized_keys
+		echo $(cat /sincronizada/id_rsa.pub) >> /home/vagrant/.ssh/authorized_keys
+        sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin no/' /etc/ssh/sshd_config
+        sed -i 's/#PasswordAuthentication yes/PasswordAuthentication no/' /etc/ssh/sshd_config
+
+        #Configuración de fail2ban para que tenga un tiempo de baneo de 5 minutos y un máximo de 2 intentos fallidos.
+        cp /etc/fail2ban/jail.conf /etc/fail2ban/jail.local
+        sed -i 's/bantime  = 10m/bantime  = 5m/' /etc/fail2ban/jail.local
+        sed -i 's/maxretry = 5/maxretry = 2/' /etc/fail2ban/jail.local
+
+        systemctl restart sshd
+        systemctl restart fail2ban
+
+        #Configuración del segundo factor de autentificación,en caso de querer utilizarlo tendremos que descomentar las siguientes líneas ya que no podriamos utilizar fail2ban y 2FA al mismo tiempo.
+        #echo "auth required pam_google_authenticator.so" >> /etc/pam.d/sshd
+        #sed -i 's/ChallengeResponseAuthentication no/ChallengeResponseAuthentication yes/' /etc/ssh/sshd_config
+		#systemctl restart sshd
+
+      SHELL
+    end
+end

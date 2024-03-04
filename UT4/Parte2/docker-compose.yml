@@ -1,0 +1,33 @@
+version: "3.8"
+services:
+ wg-easy:
+  container_name: wg-easy
+  environment:
+   - PUID=1000
+   - PGID=1000
+   - WG_HOST= 192.168.40.173
+   - PASSWORD=123456789
+  volumes:
+   - ./config:/etc/wireguard
+  ports:
+   - 51820:51820/udp 
+   - 8080:51821/tcp 
+  cap_add:
+   - NET_ADMIN
+   - SYS_MODULE
+  sysctls:
+   - net.ipv4.conf.all.src_valid_mark=1
+   - net.ipv4.ip_forward=1
+  restart: unless-stopped
+  image: weejewel/wg-easy
+ zerotier:
+  image: zyclonite/zerotier
+  container_name: zerotier-one
+  devices:
+    - /dev/net/tun
+  network_mode: host
+  volumes:
+    - '/var/lib/zerotier-one:/var/lib/zerotier-one'
+  cap_add:
+    - NET_ADMIN
+    - SYS_ADMIN

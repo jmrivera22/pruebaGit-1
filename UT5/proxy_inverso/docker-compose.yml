@@ -1,0 +1,33 @@
+version: '3.8'
+services:
+  app:
+    image: 'jc21/nginx-proxy-manager:latest'
+    restart: unless-stopped
+    ports:
+      - '80:80'
+      - '81:81'
+      - '443:443'
+    volumes:
+      - ./data:/data 
+      - ./letsencrypt:/etc/letsencrypt
+    networks:
+      - proxy_inverso
+  nginx1:
+    restart: unless-stopped
+    container_name: nginx1
+    volumes:
+      - ~/nginx1:/usr/share/nginx/html
+    image: nginx 
+    networks:
+      - proxy_inverso 
+  nginx2:
+    restart: unless-stopped
+    container_name: nginx2
+    volumes:
+      - ~/nginx2:/usr/share/nginx/html
+    image: nginx 
+    networks:
+      - proxy_inverso
+networks:
+  proxy_inverso:
+    external: true 
